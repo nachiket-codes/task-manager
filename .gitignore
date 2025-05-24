@@ -3,3 +3,5 @@ backend-node/.env
 
 backend-fastapi/app/.env
 backend-fastapi/venv
+
+frontend/app/node_modules
