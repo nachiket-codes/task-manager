@@ -11,3 +11,8 @@ export const addTask = async (req: any, res: Response) => {
     const task = await Task.create({title, user: user._id.toString()})
     res.status(200).json(task)
 }
+
+export const getTasks = async (req: any, res: Response) => {
+    const tasks = await User.find({user: req.user.email})
+    res.status(200).json(tasks)
+}
