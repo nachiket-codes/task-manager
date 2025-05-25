@@ -1,2 +1,9 @@
 backend-node/node_modules
 backend-node/.env
+
+backend-fastapi/app/.env
+backend-fastapi/venv
+backend-fastapi/app/__pycache__
+backend-fastapi/app/routes/__pycache__
+
+frontend/app/node_modules
