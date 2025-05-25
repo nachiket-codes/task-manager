@@ -40,24 +40,24 @@ async def register(userData: Register):
 
 @router.post('/login')
 async def loginUser(loginData: Login):
-    foundUser = await usersCollection.find_one({"email" : Login.email})
+    foundUser = await usersCollection.find_one({"email" : loginData.email})
     if not foundUser:
         raise HTTPException(
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail= {"message" : "Wrong credentials"}
         )
     
-    passwordVerified = Hash.verify(loginData.password, foundUser.password)
+    passwordVerified = Hash.verify(loginData.password, foundUser['password'])
     if not passwordVerified:
         raise HTTPException(
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail= {"message" : "Wrong credentials"}
         )
     
-    tokenData = createAccessToken(data = {'sub': foundUser.email})
+    tokenData = createAccessToken(data = {'sub': foundUser["email"]})
     return {
-        'id' : foundUser._id,
-        'username': foundUser.username,
-        'email': foundUser.email,
+        'id' : str(foundUser['_id']),
+        'username': foundUser['username'],
+        'email': foundUser['email'],
         'token' : tokenData.access_token
     }
