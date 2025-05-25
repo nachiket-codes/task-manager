@@ -8,3 +8,4 @@ load_dotenv()
 client = AsyncIOMotorClient(os.getenv("MONGOURL"))
 db = client["test"]
 usersCollection = db["users"]
+tasksCollection = db["tasks"]

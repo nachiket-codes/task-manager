@@ -16,7 +16,7 @@ def createAccessToken(data: dict, expiresDelta: timedelta = None) -> Token:
 
 def verifyAccessToken(token: str, credentialsException: HTTPException) -> TokenData:
     try:
-        payload = jwt.decode(token = token, key = os.getenv('SECRET_KEY'), algorithms = [os.getenv('ALGORITH')])
+        payload = jwt.decode(token = token, key = os.getenv('SECRET_KEY'), algorithms = [os.getenv('ALGORITHM')])
         email = payload.get('sub')
         if not email:
             raise credentialsException
