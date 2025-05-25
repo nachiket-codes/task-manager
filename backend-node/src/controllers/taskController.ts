@@ -12,3 +12,8 @@ export const addTask = async (req: any, res: Response) => {
     res.status(200).json(task)
 }
 
+export const getTasks = async (req: any, res: Response) => {
+    const user = await User.findOne({email: req.user.email})
+    const tasks = await Task.find({user: user?._id.toString()})
+    res.status(200).json(tasks)
+}
