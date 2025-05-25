@@ -13,3 +13,7 @@ class TokenData(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str = 'bearer'
+
+class TaskReq(BaseModel):
+    title: str
+    completed: bool = False

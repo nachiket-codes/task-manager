@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import userRoutes
+from routes import userRoutes, taskRoutes
 
 app = FastAPI()
 
@@ -15,4 +15,5 @@ app.add_middleware(
 )
 
 app.include_router(userRoutes.router)
+app.include_router(taskRoutes.router)
 

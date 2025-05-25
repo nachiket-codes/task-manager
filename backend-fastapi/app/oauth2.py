@@ -2,7 +2,7 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
 from authentication import verifyAccessToken
 
-oauthScheme = OAuth2PasswordBearer(tokenUrl = 'login')
+oauthScheme = OAuth2PasswordBearer(tokenUrl = '/auth/login')
 
 def getCurrentUser(token: str = Depends(oauthScheme)):
     credentialsException = HTTPException(
