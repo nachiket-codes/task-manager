@@ -42,13 +42,13 @@ const Register : React.FC = () => {
                 </h1>
                 <form action="" onSubmit={handleRegister} className="flex flex-col gap-2 w-[40%]">
                     <input required type="text" placeholder="Enter your name" className={inputClassStyle} value={username} onChange={(e)=>setUsername(e.target.value)}/>
-                    <input required type="text" placeholder="Enter your email" className={inputClassStyle} value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                    <input required type="password" placeholder="Password" className={inputClassStyle} value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    <input required type="text" autoComplete="username" placeholder="Enter your email" className={inputClassStyle} value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    <input required type="password" autoComplete="new-password" placeholder="Password" className={inputClassStyle} value={password} onChange={(e)=>setPassword(e.target.value)}/>
                     <input type="password" placeholder="Confirm Password" className={inputClassStyle} value={confPassword} onChange={(e)=>setConfPassword(e.target.value)}/>
                     <p className="text-xl text-center text-red-600 font-semibold">{error}</p>
                     <button className="border-2 border-black p-2 text-xl font-bold bg-black text-white hover:bg-white hover:text-black ease-out duration-300">Register</button>
                 </form>
-                <p className="p-1 text-[20px] mt-2">Already a member? <Link to="/" className="text-blue-500 font-semibold">Login</Link></p>
+                <p className="p-1 text-[20px] mt-2">Already a member? <Link to="/login" className="text-blue-500 font-semibold">Login</Link></p>
             </div>
         </div>
     )

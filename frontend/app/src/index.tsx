@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './components/Register';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import Login from './components/Login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,6 +17,7 @@ root.render(
       <Router>
         <Routes>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </Router>
     </Provider>
