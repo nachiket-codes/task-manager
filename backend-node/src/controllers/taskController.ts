@@ -11,3 +11,4 @@ export const addTask = async (req: any, res: Response) => {
     const task = await Task.create({title, user: user._id.toString()})
     res.status(200).json(task)
 }
+

@@ -7,6 +7,7 @@ import Register from './components/Register';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Login from './components/Login';
+import Tasks from './components/Tasks';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
         <Routes>
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path='/' element={<Tasks/>} />
         </Routes>
       </Router>
     </Provider>

@@ -7,3 +7,5 @@ const router = express.Router()
 router.use(protect)
 
 router.post('/tasks', addTask);
+
+export default router;
