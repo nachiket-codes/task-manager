@@ -1,8 +1,8 @@
 import Header from "./Header";
-import { useState } from 'react'
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store";
-import { createTask } from "../features/taskSlice";
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
+import { createTask, getTasks } from "../features/taskSlice";
 import TaskCard from "./TaskCard";
 
 const Tasks: React.FC = () => {
@@ -17,6 +17,15 @@ const Tasks: React.FC = () => {
         }
     }
 
+    const { tasks, error, loading } = useSelector((state: RootState)=>{
+        console.log(state.tasks)
+        return state.tasks
+    })
+
+    useEffect(()=>{
+        dispath(getTasks())
+    }, [dispath])
+
     return (
         <div className="h-screen w-full flex flex-col">
             <Header/>
@@ -28,9 +37,11 @@ const Tasks: React.FC = () => {
             </div>
             <div className="flex-1 flex justify-center flex-col items-center w-[full]">
                 <div className="flex-1 w-[70%] flex flex-col gap-2">
-                    <TaskCard/>
-                    <TaskCard/>
-                    <TaskCard/>
+                    {
+                        tasks.map((task, idx) => (
+                            <TaskCard key={idx} task={task}/>
+                        ))
+                    }
                     
                     
                 </div>
