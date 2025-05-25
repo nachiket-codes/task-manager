@@ -8,11 +8,12 @@ const generateToken = (email: String) => {
 }
 
 export const addUser = async (req: Request, res: Response) => {
+    console.log("dispacth")
     const { username, email, password } = req.body;
     const foundUser = await User.findOne({email})
-    if (!foundUser) return res.status(401).json({"message": "User already present"})
+    if (foundUser) return res.status(401).json({"message": "User already present"})
 
-    const hashedPassword = bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10)
     const addedUser = await User.insertOne({username, email, password: hashedPassword})
     const token = generateToken(addedUser.email)
     res.status(200).json({
