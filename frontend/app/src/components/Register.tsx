@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from "../store";
+import { registerUser } from "../features/authSlice";
 
 const Register : React.FC = () => {
     const inputClassStyle = "border border-black p-2 text-xl outline-none hover:bg-black hover:text-white"
@@ -9,6 +12,7 @@ const Register : React.FC = () => {
     const [ password, setPassword ] = useState<string>('')
     const [ confPassword, setConfPassword ] = useState<string>('')
     const [ error, setError ] = useState<string>('')
+    const dispatch = useDispatch<AppDispatch>()
 
     const handleRegister = (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,7 +30,7 @@ const Register : React.FC = () => {
             return
         }
         setError('')
-
+        dispatch(registerUser({username, email, password}))
 
     }
     return (

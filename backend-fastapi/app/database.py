@@ -6,5 +6,5 @@ load_dotenv()
 
 
 client = AsyncIOMotorClient(os.getenv("MONGOURL"))
-db = client["HybridTask"]
+db = client["test"]
 usersCollection = db["users"]

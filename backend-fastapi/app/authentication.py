@@ -9,7 +9,7 @@ def createAccessToken(data: dict, expiresDelta: timedelta = None) -> Token:
     if expiresDelta:
         exp = expiresDelta + datetime.utcnow()
     else:
-        exp = datetime.utcnow() + timedelta(minutes = os.getenv("EXPIRES_MINUTES"))
+        exp = datetime.utcnow() + timedelta(minutes = int(os.getenv("EXPIRES_MINUTES")))
     dataToEncode.update({'exp': exp})
     token = jwt.encode(claims = dataToEncode, key = os.getenv('SECRET_KEY'), algorithm = os.getenv('ALGORITHM'))
     return Token(access_token = token)
