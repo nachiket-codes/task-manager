@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from models import TaskReq, TokenData
+from models import TaskReq, TokenData, Task
 from oauth2 import getCurrentUser
 from database import usersCollection, tasksCollection
 
@@ -28,3 +28,18 @@ async def createTask(task: TaskReq, user: TokenData = Depends(getCurrentUser)):
     return {
         "message" : f"Task inserted with id: {result.inserted_id}"
     }
+
+@router.get('/')
+async def getTasks(user: TokenData = Depends(getCurrentUser)):
+    foundUser = await usersCollection.find_one({'email': user.email})
+    if not foundUser:
+        raise HTTPException(
+            status_code = status.HTTP_401_UNAUTHORIZED,
+            detail = {"message": "Unauthorized access!"}
+        )
+    tasksCursor = tasksCollection.find({"user": str(foundUser['_id'])})
+    tasks = await tasksCursor.to_list()
+
+    tasksToReturn = [Task.from_doc(task) for task in tasks]
+
+    return tasksToReturn

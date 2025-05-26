@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from "../store";
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from "../store";
 import { loginUser } from "../features/authSlice";
 
 const Login: React.FC = () => {
@@ -10,6 +10,9 @@ const Login: React.FC = () => {
     const [ email, setEmail ] = useState<string>('')
     const [ password, setPassword ] = useState<string>('')
     const [ error, setError ] = useState<string>('')
+    const { user } = useSelector((state: RootState) => state.authen)
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -21,6 +24,12 @@ const Login: React.FC = () => {
         }
         dispatch(loginUser({email, password}))
     }
+
+    useEffect(()=>{
+        if (user?.token) {
+            navigate('/')
+        }
+    }, [user])
 
     return (
         <div className="h-screen w-full flex flex-col">

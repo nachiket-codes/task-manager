@@ -13,4 +13,15 @@ API.interceptors.request.use((config) => {
     return config;
 })
 
+API.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            // store.dispatch(logoutUser())
+            window.location.href = '/login'  // Force navigation
+        }
+        return Promise.reject(error)
+    }
+)
+
 export default API
