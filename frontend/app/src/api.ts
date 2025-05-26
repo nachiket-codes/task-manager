@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const API = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'http://localhost:8000'
 })
 
 API.interceptors.request.use((config) => {
@@ -12,5 +12,16 @@ API.interceptors.request.use((config) => {
     }
     return config;
 })
+
+API.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            // store.dispatch(logoutUser())
+            window.location.href = '/login'  // Force navigation
+        }
+        return Promise.reject(error)
+    }
+)
 
 export default API

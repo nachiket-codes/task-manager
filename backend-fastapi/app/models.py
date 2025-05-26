@@ -17,3 +17,13 @@ class Token(BaseModel):
 class TaskReq(BaseModel):
     title: str
     completed: bool = False
+
+class Task(TaskReq):
+    id: str
+    @staticmethod
+    def from_doc(doc) -> 'Task':
+        return Task(
+            completed = doc['completed'],
+            title= doc["title"],
+            id=str(doc["_id"])
+        )

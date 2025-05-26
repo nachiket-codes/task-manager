@@ -11,16 +11,13 @@ interface Task extends AddTask{
 }
 
 interface InitialState {
-    task: Task
+    tasks: Task[]
     loading: boolean
     error: string | null
 }
 
 const initialState: InitialState = {
-    task: {
-        title: null,
-        completed: false
-    },
+    tasks: [],
     loading: false,
     error: null
 }
@@ -48,6 +45,14 @@ const taskSlice = createSlice({
             state.error = action.error.message || "Failed to create the task"
         }).addCase(createTask.pending, (state) => {
             state.loading = true
+        }).addCase(getTasks.fulfilled, (state, action) => {
+            state.loading = false
+            state.tasks = action.payload
+        }).addCase(getTasks.pending, (state) => {
+            state.loading = true
+        }).addCase(getTasks.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.error.message || "Failed to get the tasks"
         })
     }
 })
